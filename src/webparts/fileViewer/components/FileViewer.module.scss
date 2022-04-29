@@ -5,6 +5,7 @@
   padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
@@ -12,6 +13,21 @@
 
 .welcome {
   text-align: center;
+}
+
+.Navigation {
+  height: max-content;
+  width: 30%;
+  float: left;
+  border: 1px solid red;
+  padding: 5px;
+}
+
+.FileLoadViewer {
+  float: left;
+  border: 1px solid red;
+  padding: 5px;
+  width: 66%;
 }
 
 .welcomeImage {

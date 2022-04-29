@@ -22,7 +22,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
         "/_api/web/lists/getbytitle('Document List')/Items?$select=Title" +
         ",Url" +
         ",Category" +
-        ",SortOrder" ;
+        ",SortOrder";
 
       const responseEmail = await this.props.context.spHttpClient.get(
         redirectionEmailURL,
@@ -48,11 +48,11 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
         });
         this.setState({ ListItems: returnValues });
         //  ListItems = [
-         //  {Title:"Ashish",SortOrder:1,Category:"Developer",Url:"http://google.com"},
+        //  {Title:"Ashish",SortOrder:1,Category:"Developer",Url:"http://google.com"},
         //  {Title:"Ghatak",SortOrder:2,Category:"Developer",Url:"http://google.com"},
         //]
       }
-      
+
     } catch (error) {
       console.log("Error in GetItem : " + error);
     }
@@ -76,14 +76,15 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
 
     return (
       <section className={`${styles.fileViewer} ${hasTeamsContext ? styles.teams : ''}`}>
-        
-        <div>
-          {this.state.ListItems.map((item)=>{
-return (<div>{item.Title}</div>)
+
+        <div className={styles.Navigation}>
+          <h1>Navigation</h1>
+          {this.state.ListItems.map((item) => {
+            return (<div>{item.Title}</div>)
           })}
         </div>
-        <div>
-
+        <div className={styles.FileLoadViewer}>
+          <h1>File Viewer</h1>
         </div>
       </section>
     );
