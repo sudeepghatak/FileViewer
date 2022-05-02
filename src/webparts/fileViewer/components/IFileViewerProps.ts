@@ -10,4 +10,5 @@ export interface IFileViewerProps {
   context:WebPartContext;
   siteUrl:string;
   spHttpClient: SPHttpClient;
+  close:() => void;
 }
