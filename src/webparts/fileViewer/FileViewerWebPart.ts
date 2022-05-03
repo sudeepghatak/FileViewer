@@ -7,10 +7,10 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
 import * as strings from 'FileViewerWebPartStrings';
 import FileViewer from './components/FileViewer';
 import { IFileViewerProps } from './components/IFileViewerProps';
+import { getSP } from './components/pnpjsConfig';
 
 export interface IFileViewerWebPartProps {
   description: string;
@@ -21,10 +21,11 @@ export default class FileViewerWebPart extends BaseClientSideWebPart<IFileViewer
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
-  protected onInit(): Promise<void> {
+  protected async onInit(): Promise<void> {
     this._environmentMessage = this._getEnvironmentMessage();
 
-    return super.onInit();
+    super.onInit();
+    getSP(this.context);    
   }
 
   public render(): void {

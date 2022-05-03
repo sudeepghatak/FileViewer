@@ -1,64 +1,52 @@
 import * as React from 'react';
 import styles from './FileViewer.module.scss';
-import { escape } from '@microsoft/sp-lodash-subset';
 import { IFileViewerState } from './IFileViewerState';
 import { IFileViewerProps } from './IFileViewerProps';
-import { SPHttpClient } from "@microsoft/sp-http";
 import { IListItems } from './IListems';
 import { BaseButton, PanelType, Text } from 'office-ui-fabric-react';
 import { IFramePanel } from "@pnp/spfx-controls-react/lib/IFramePanel";
+import "@pnp/sp/webs";
+import "@pnp/sp/lists";
+import "@pnp/sp/items";
+import { SPFI, spfi } from '@pnp/sp';
+import { getSP } from './pnpjsConfig';
+
+
+
 
 export default class FileViewer extends React.Component<IFileViewerProps, IFileViewerState, {}> {
-
+  private _sp: SPFI;
 
   public constructor(props) {
     super(props);
     this.state = { ListItems: [], show: false, docUrl: "" };
+    this._sp = getSP();
   }
 
 
   private async GetItems() {
     try {
-      var redirectionEmailURL =
-        this.props.siteUrl +
-        "/_api/web/lists/getbytitle('Document List')/Items?$select=Title" +
-        ",Url" +
-        ",Category" +
-        ",SortOrder";
 
-      const responseEmail = await this.props.context.spHttpClient.get(
-        redirectionEmailURL,
-        SPHttpClient.configurations.v1
-      );
-      var returnValues: IListItems[] = [];
-      const responseEmailJSON = await responseEmail.json();
-      if (responseEmailJSON.value !== null) {
-        var resultJSONArray = responseEmailJSON.value;
+      const spCache = spfi(this._sp);
+      const response: IListItems[] = await spCache.web.lists
+        .getByTitle('Document List')
+        .items
+        .select("Url", "Title", "Category", "SortOrder").orderBy("Category",true).orderBy("SortOrder",true)();
 
-        //  resultJSONArray = [
-        //  {Title:"Ashish",SortOrder:1,Category:"Developer",Url:"http://google.com"},
-        //  {Title:"Ghatak",SortOrder:2,Category:"Developer",Url:"http://google.com"},
-        //]
+      console.log("response");
+      console.log(response);
 
-        resultJSONArray.map((att) => {
-          returnValues.push({
-            Title: att.Title,
-            Category: att.Category,
-            Url: att.Url,
-            LinkTitle: att.LinkTitle
-          });
-        });
-        this.setState({ ListItems: returnValues });
-        //  ListItems = [
-        //  {Title:"Ashish",SortOrder:1,Category:"Developer",Url:"http://google.com"},
-        //  {Title:"Ghatak",SortOrder:2,Category:"Developer",Url:"http://google.com"},
-        //]
-      }
+
+      this.setState({ ListItems: response });
+
 
     } catch (error) {
       console.log("Error in GetItem : " + error);
     }
   }
+
+
+  
 
   public componentDidMount(): void {
     this.GetItems();
@@ -82,6 +70,9 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
       hasTeamsContext,
       userDisplayName
     } = this.props;
+
+
+
 
     return (
       <section className={`${styles.fileViewer} ${hasTeamsContext ? styles.teams : ''}`}>
