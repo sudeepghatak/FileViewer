@@ -11,6 +11,10 @@
   }
 }
 
+h5 {
+  padding-left: 10px;
+}
+
 .welcome {
   text-align: center;
 }
@@ -19,14 +23,12 @@
   height: max-content;
   width: 30%;
   float: left;
-  border: 1px solid red;
-  padding: 5px;
+  border: 1px solid grey;
+  background-color: #F2F1F0;
+  padding: 15px;
 }
 
 .FileLoadViewer {
-  float: left;
-  border: 1px solid red;
-  padding: 5px;
   width: 66%;
 }
 
