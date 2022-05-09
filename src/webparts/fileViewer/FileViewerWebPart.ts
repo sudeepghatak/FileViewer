@@ -13,33 +13,34 @@ import { IFileViewerProps } from './components/IFileViewerProps';
 import { getSP } from './components/pnpjsConfig';
 
 export interface IFileViewerWebPartProps {
-  description: string;
+  ListTitle: string;
 }
 
 export default class FileViewerWebPart extends BaseClientSideWebPart<IFileViewerWebPartProps> {
 
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
+  private _listTitle: string = "Document List";
 
   protected async onInit(): Promise<void> {
     this._environmentMessage = this._getEnvironmentMessage();
 
     super.onInit();
-    getSP(this.context);    
+    getSP(this.context);
   }
 
   public render(): void {
     const element: React.ReactElement<IFileViewerProps> = React.createElement(
       FileViewer,
       {
-        description: this.properties.description,
+        listTitle: this._listTitle,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
-        context:this.context,
-        spHttpClient: this.context.spHttpClient,        
-        siteUrl: this.context.pageContext.web.absoluteUrl,  
+        context: this.context,
+        spHttpClient: this.context.spHttpClient,
+        siteUrl: this.context.pageContext.web.absoluteUrl,
       }
     );
 
@@ -86,10 +87,10 @@ export default class FileViewerWebPart extends BaseClientSideWebPart<IFileViewer
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: "Properties",
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('listTitle', {
+                  label: "List Title"
                 })
               ]
             }

@@ -3,26 +3,36 @@
   "id": "0033984b-057d-4423-9802-df8f5275ac20",
   "alias": "FileViewerWebPart",
   "componentType": "WebPart",
-
   // The "*" signifies that the version should be taken from the package.json
   "version": "*",
   "manifestVersion": 2,
-
   // If true, the component can only be installed on sites where Custom Script is allowed.
   // Components that allow authors to embed arbitrary script code should set this to true.
   // https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f
   "requiresCustomScript": false,
-  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "supportedHosts": [
+    "SharePointWebPart",
+    "TeamsPersonalApp",
+    "TeamsTab",
+    "SharePointFullPage"
+  ],
   "supportsThemeVariants": true,
-
-  "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
-    "group": { "default": "Other" },
-    "title": { "default": "FileViewer" },
-    "description": { "default": "FileViewer description" },
-    "officeFabricIconFontName": "Page",
-    "properties": {
-      "description": "FileViewer"
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
+      "group": {
+        "default": "Other"
+      },
+      "title": {
+        "default": "Cadence File Viewer"
+      },
+      "description": {
+        "default": "Cadence File description"
+      },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "description": "Document List"
+      }
     }
-  }]
+  ]
 }

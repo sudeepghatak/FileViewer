@@ -35,7 +35,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
 
       const spCache = spfi(this._sp);
       const response: IListItems[] = await spCache.web.lists
-        .getByTitle('Document List')
+        .getByTitle(this.props.listTitle)
         .items
         .select("Url", "Title", "Category", "SortOrder").orderBy("Category", true).orderBy("SortOrder", true)();
 
@@ -93,7 +93,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
 
   public render(): React.ReactElement<IFileViewerProps> {
     const {
-      description,
+      listTitle,
       isDarkTheme,
       environmentMessage,
       hasTeamsContext,
@@ -126,7 +126,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
             type={PanelType.extraLarge}
             headerText="Panel Title"
             closeButtonAriaLabel="Close"
-            isOpen={this.state.show}
+            isOpen={this.state.docUrl?this.state.show:false}
             onDismiss={this._OnDismiss.bind(this)}
           />
 
