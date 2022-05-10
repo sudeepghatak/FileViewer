@@ -33,7 +33,7 @@ export default class FileViewerWebPart extends BaseClientSideWebPart<IFileViewer
     const element: React.ReactElement<IFileViewerProps> = React.createElement(
       FileViewer,
       {
-        listTitle: this._listTitle,
+        ListTitle: this.properties.ListTitle,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
@@ -89,7 +89,7 @@ export default class FileViewerWebPart extends BaseClientSideWebPart<IFileViewer
             {
               groupName: "Properties",
               groupFields: [
-                PropertyPaneTextField('listTitle', {
+                PropertyPaneTextField('ListTitle', {
                   label: "List Title"
                 })
               ]

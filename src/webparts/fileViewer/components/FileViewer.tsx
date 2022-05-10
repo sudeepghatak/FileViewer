@@ -23,25 +23,19 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
     this._sp = getSP();
   }
 
-  private groupBy = function (xs, key) {
-    return xs.reduce(function (rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
-    }, {});
-  };
+  
 
   private async GetItems() {
     try {
 
       const spCache = spfi(this._sp);
       const response: IListItems[] = await spCache.web.lists
-        .getByTitle(this.props.listTitle)
+        .getByTitle(this.props.ListTitle)
         .items
         .select("Url", "Title", "Category", "SortOrder").orderBy("Category", true).orderBy("SortOrder", true)();
 
-      console.log("response");
-      let s = this.groupBy(response, "length")
       console.log(response);
+      
       
 
       
@@ -72,7 +66,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
 
   public render(): React.ReactElement<IFileViewerProps> {
     const {
-      listTitle,
+      ListTitle,
       isDarkTheme,
       environmentMessage,
       hasTeamsContext,

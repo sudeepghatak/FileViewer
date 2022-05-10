@@ -31,7 +31,7 @@
       },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "description": "Document List"
+        "ListTitle": "Document List"
       }
     }
   ]
