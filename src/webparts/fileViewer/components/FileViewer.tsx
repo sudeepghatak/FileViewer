@@ -19,7 +19,7 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
 
   public constructor(props) {
     super(props);
-    this.state = { ListItems: [], DistinctCategories: [], show: false, docUrl: "" };
+    this.state = { ListItems: [], show: false, docUrl: "" };
     this._sp = getSP();
   }
 
@@ -42,40 +42,19 @@ export default class FileViewer extends React.Component<IFileViewerProps, IFileV
       console.log("response");
       let s = this.groupBy(response, "length")
       console.log(response);
-      console.log(response);
+      
 
-      let distinctCategories = this.GetDistinctCategories(response);
+      
 
       this.setState({ ListItems: response });
-      this.setState({ DistinctCategories: distinctCategories });
-      console.log("Categories : " + distinctCategories);
+      
+      
 
     } catch (error) {
       console.log("Error in GetItem : " + error);
     }
   }
 
-
-  public GetDistinctCategories(items: IListItems[]): String[] {
-    let categories: String[] = [];
-    let previousCategory: String = "";
-    items.map((item) => {
-      if (item.Category != previousCategory) { categories.push(item.Category) }
-      previousCategory = item.Category
-    })
-    return categories;
-  }
-
-
-  public GetCategoryItems(category: String): IListItems[] {
-    let items: IListItems[] = this.state.ListItems;
-    let filteredListItems: IListItems[] = [];
-    items.map((item) => {
-      if (item.Category == category) { filteredListItems.push(item) }
-
-    })
-    return filteredListItems;
-  }
 
   public componentDidMount(): void {
     this.GetItems();
